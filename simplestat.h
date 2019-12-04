@@ -1,3 +1,6 @@
+#ifndef SIMPLESTAT_H
+#define SIMPLESTAT_H
+
 #include <iostream>
 
 template <typename I>
@@ -52,4 +55,6 @@ I get_max { return max_val }
 
 
 
-}
+};
+
+#endif
