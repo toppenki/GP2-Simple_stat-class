@@ -46,12 +46,12 @@ I find_max() {
 public:
 
 //getters
-I get_mode() { return mode }
-I get_median() { return median }
-I get_mean() { return mean }
-I get_SD() { return std_dev }
-I get_min { return min_val }
-I get_max { return max_val }
+I get_mode() { return mode; }
+I get_median() { return median; }
+I get_mean() { return mean; }
+I get_SD() { return std_dev; }
+I get_min { return min_val; }
+I get_max { return max_val; }
 
 
 
