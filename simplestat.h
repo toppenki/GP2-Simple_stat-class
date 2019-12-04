@@ -14,44 +14,44 @@ I median = 0; //middle value
 I mean = 0; //avg
 I std_dev = 0; //standard deviation
 
-//NEED CONSTRUCTOR
-//NEED DESTRUCTOR
-
 //calculating functions
-I find_mode() {
+void find_mode(I numberSet) {
 
 }
 
-I find_median() {
+void find_median(I numberSet) {
 
 }
 
-I find_mean() {
+void find_mean(I numberSet) {
 
 }
 
-I find_SD() {
+void find_SD(I numberSet) {
 
 }
 
-I find_min() {
+void find_min(I numberSet) {
 
 }
 
-I find_max() {
+void find_max(I numberSet) {
 
 }
 
 
 public:
 
+//NEED CONSTRUCTOR
+//NEED DESTRUCTOR
+  
 //getters
 I get_mode() { return mode; }
 I get_median() { return median; }
 I get_mean() { return mean; }
 I get_SD() { return std_dev; }
-I get_min { return min_val; }
-I get_max { return max_val; }
+I get_min() { return min_val; }
+I get_max() { return max_val; }
 
 
 
