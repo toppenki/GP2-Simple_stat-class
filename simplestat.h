@@ -14,8 +14,14 @@ I median = 0; //middle value
 I mean = 0; //avg
 I std_dev = 0; //standard deviation
 
-//NEED CONSTRUCTOR
-//NEED DESTRUCTOR
+int length = 0; 
+/*to count the length of the input type
+ie: length of input is 10, length becomes 10*/
+ 
+int mode_array[length]; 
+/* maybe have an array of some sort to count the number of each
+unique number, and then increase the value + 1 everytime that value is found
+meaning every thing is set to 0*/
 
 //calculating functions
 I find_mode() {
@@ -44,7 +50,9 @@ I find_max() {
 
 
 public:
-
+//NEED CONSTRUCTOR
+//NEED DESTRUCTOR
+  
 //getters
 I get_mode() { return mode; }
 I get_median() { return median; }
