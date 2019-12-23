@@ -234,6 +234,16 @@ public:
      E temp = getValue();
      return temp;
    }
+  
+  E removen(int n)
+   {
+      int temp = currPos();
+      for (int i = 0; i < n; i++)
+      {
+         remove();
+         moveToPos(temp);
+      }
+   }
 
  //getters
 double get_mode() { return mode; }
