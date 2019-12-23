@@ -244,6 +244,13 @@ public:
          moveToPos(temp);
       }
    }
+  
+  template<typename Container>
+  void feed(Container& cont)
+   {
+      for (auto it : cont)
+         append(it);
+   }
 
  //getters
 double get_mode() { return mode; }
