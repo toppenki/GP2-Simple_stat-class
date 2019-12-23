@@ -227,6 +227,13 @@ public:
     this->head = result.head;
   }
   bool isAtEnd() { return curr == tail; }
+  
+  E &operator[] (int index)
+  {
+     moveToPos(index);
+     E temp = getValue();
+     return temp;
+   }
 
  //getters
 double get_mode() { return mode; }
