@@ -11,6 +11,7 @@
 #include <iostream>
 #include <set>
 #include <vector>
+#include <utility>
 #include <cmath> //for taking the sqrt of the variance during standard deviation calculation
 using namespace std;
 
@@ -351,7 +352,37 @@ public:
   }
 
 
+  void search(E value, int occurances) {
 
+    std::pair<int,int> first_and_reps;
+    bool first = false;
+
+    moveToStart();
+
+    for (int i = 0; i < length(); i++) {
+
+      if (this->element == value && first != true) {
+
+        first_and_reps.first = i;
+        first = true;
+
+      }
+      if(this->element == value) {
+
+        first_and_reps.second++;
+
+      }
+
+      next();
+
+    }
+
+    
+    cout << "The value " << value << ": \n";
+    cout << "First occurs at index: " << first_and_reps.first << std::endl;
+    cout << "And repeats: " << first_and_reps.second << "times. \n"; 
+
+  }
 
 
   // Place curr at list start
