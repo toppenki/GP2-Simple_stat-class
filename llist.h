@@ -240,7 +240,7 @@ public:
       int temp = currPos();
       for (int i = 0; i < n; i++)
       {
-         remove();
+         remove(true);
          moveToPos(temp);
       }
    }
@@ -249,7 +249,7 @@ public:
   void feed(Container& cont)
    {
       for (auto it : cont)
-         append(it);
+         append(it, true);
    }
 
  //getters
