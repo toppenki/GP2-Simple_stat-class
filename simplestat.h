@@ -10,6 +10,7 @@
 #include "link.h"
 #include <iostream>
 #include <set>
+#include <vector>
 #include <cmath> //for taking the sqrt of the variance during standard deviation calculation
 using namespace std;
 
@@ -110,6 +111,83 @@ private:
       //cout << "median is " << median << endl;
     }
   }
+
+  void update_mode()
+  {
+    /*cout << "STARTING UPDATE MODE" << endl;
+    cout << '\n' << '\n' << endl;
+    moveToStart();
+    sortList();
+    moveToStart();
+    double initial_mode_candidate = getValue();
+    cout << "The value of the original initial_mode_candidate: " << initial_mode_candidate << endl; 
+    int counterOfOccurences = 0;
+    std::vector<pair<int, double> > vectorOfModes(length()); //vector of pairs, where the first value is the count (frequency) and the second is the value of that frequency
+    for (int i = 0; i < length(); i++)
+    {
+      //outer for loop, to hold first value of sorted list and compare to subsequent values and understand 
+      //the frequency of occurence of that value
+      if (length() == 1)
+      {
+        cout << "No mode" << endl;
+        break;
+      }
+      if (initial_mode_candidate == curr->next()->element())
+      {
+        counterOfOccurences++;
+        vectorOfModes[i].first = counterOfOccurences;
+        vectorOfModes[i].second = getValue(); 
+      }
+      else
+      {
+        initial_mode_candidate = curr->next()->element();
+      }
+      next();
+    }
+
+    for (int i = 0; i < length(); i++)
+    {
+      cout << "vector is: " << vectorOfModes[i].first << ", " << vectorOfModes[i].second << endl;
+    }
+
+    
+  
+
+
+*/
+  moveToStart();
+  int arr[cnt];
+  int number = arr[0];
+  mode = number;
+  int count = 1;
+  int modeCounter = 1;
+
+
+  for(int i = 0; i <length() ; i++)
+  {
+    arr[i] = getValue();
+    next();
+  }
+  moveToStart();
+
+  for (int i=1; i<cnt; i++)
+  { 
+      if (arr[i] == number) 
+      {
+          count++;
+      }
+      else
+      {
+          if (count > modeCounter) 
+          {
+              modeCounter = count;
+              mode = number;
+          }
+          count = 1;
+          number = arr[i];
+      }
+  }
+}
 
   void sortList()
   {
@@ -251,6 +329,7 @@ public:
       update_median();
       update_min_val();
       update_max_val();
+      //update_mode();
     }
   }
 
@@ -265,6 +344,7 @@ public:
       update_median();
       update_min_val();
       update_max_val();
+      update_mode();
     }
   }
   // Remove and return current element
@@ -282,7 +362,8 @@ public:
       update_std_dev();
       update_median(); 
       update_min_val();
-      update_max_val();     
+      update_max_val();  
+      //update_mode();   
     }
 
     return it;

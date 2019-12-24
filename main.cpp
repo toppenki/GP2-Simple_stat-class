@@ -1,7 +1,6 @@
 #include "link.h"
 #include "alist.h"
-#include "llist.h"
-
+#include "simplestat.h"
 #include <iostream>
 #include <vector>
 #include <unordered_set>
@@ -19,10 +18,11 @@ using namespace std;
 int main(int argc, char *argv[])
 {
   cout << "CREATING EMPTY OBJECT" << endl;
-  LList<double> statistics;
+  Simplestat<double> statistics;
   
   cout <<"ADDING 10 ELEMENTS TO LIST" << endl;
   cout <<"Based on for loop, will add 10, 9, 8, 7, 6, 5, 4, 3, 2, 1" << endl;
+  cout << "The append() function will sort and calculate statistics" << endl;
   for (int i = 10; i > 0; i--)
   {
     statistics.append(i, true);
@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
   cout << "standard deviation: " << statistics.get_SD() << endl;
   cout << "mode: " << statistics.get_mode() << endl;
 
+
   cout << "PRINTING LIST" << endl;
   statistics.print();
 
@@ -44,7 +45,21 @@ int main(int argc, char *argv[])
   statistics.moveToStart();
   //statistics.print();
 
+  cout << "REMOVING 1 TO n OBJECTS FROM LIST (N = 2 in this case)" << endl;
+
   statistics.removen(2);
+
+  statistics.print();
+
+  cout << "THE STATS WITH ORDER(1) ACCESS ARE:" << endl;
+  cout << "mean: " << statistics.get_mean() << endl;
+  cout << "min: " << statistics.get_min() << endl;
+  cout << "max: "<< statistics.get_max() << endl;
+  cout << "median: " << statistics.get_median() << endl;
+  cout << "standard deviation: " << statistics.get_SD() << endl;
+  cout << "mode: " << statistics.get_mode() << endl;
+
+
   std::vector<int> vect{22, 23, 24};
   std::array<int, 3> arr{25, 26, 27};
   std::set<int> the_set(vect.begin(), vect.end());
@@ -58,23 +73,6 @@ int main(int argc, char *argv[])
   statistics.feed(the_list);
   statistics.feed(the_unordered_set);
 
-  /*cout << "THE MEAN IS:" << endl;
-  cout << statistics.get_mean() << endl;
-
-  cout << "Length of linked list is " << statistics.length() << endl;
-
-  //printing all  objects in linked list
-  statistics.print();
-  cout << endl;
-
-  cout << "THE MEAN IS:" << endl;
-  cout << statistics.get_mean() << endl;
-
-  cout << "REMOVING DATA FROM n PLACE IN LIST (n = 5)" << endl;
-  statistics.moveToPos(5);
-  statistics.remove(true);
-
-  cout << "PRINTING LIST" << endl;*/
   statistics.print();
 
   cout << "THE STATS WITH ORDER(1) ACCESS ARE:" << endl;
@@ -94,5 +92,7 @@ int main(int argc, char *argv[])
   cout << endl;
 
   cout << "LENGTH OF UNIQUE SET: " << statistics.unique_length() << endl;
+
+  cout << "USING OPERATOR OVERLOAD TO ACCESS LINKED LIST'S 5TH OBJECT: " << statistics[4] << endl;
 
 }
