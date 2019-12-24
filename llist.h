@@ -9,6 +9,8 @@
 #include "list.h"
 #include "link.h"
 #include <iostream>
+#include <set>
+#include <cmath> //for taking the sqrt of the variance during standard deviation calculation
 using namespace std;
 
 // Linked list implementation
@@ -46,31 +48,108 @@ private:
   }
 
   void update_max_val() {
-    moveToStart();
-    for (int i = 0; i < length(); i++)
-    {
-      if (getValue() > max_val)
-      {
-        max_val = getValue();
-        next();  
-      }
-      else
-        next();  
-    }
+    moveToPos(length() -1);
+    max_val = getValue();
   }
 
   void update_min_val() {
     moveToStart();
+    min_val = getValue();
+  }
+
+  void update_std_dev() {
+    update_mean();
+    double temp_array[length()];
+    
+    for (int i = 0; i < length(); i++) //initialize array to 0
+    {
+      temp_array[i] = 0;
+    }
+    for (int i = 0; i < length(); i++) //loop for (xi - mean)^2 for each value in list
+    {
+      temp_array[i] = (getValue() - mean) * (getValue() - mean);
+      //cout << "temp_array at position " << i << " is " << temp_array[i] << endl;
+      next();
+    }
+    moveToStart();
+    double total = 0;
+    for (int i = 0; i < length(); i++) //sum up values for temp_array[]
+    {
+      total = total + temp_array[i];
+    }
+    //cout << "total is " << total << endl;
+    double variance = 0;
+    variance = total / length();
+    //cout << "variance is " << variance << endl;
+    std_dev = sqrt(variance);
+    //cout << "std_dev is " << std_dev << endl;
+
+  }
+
+  void update_median()
+  {
+
+    //need to sort before - use selection sort
+    sortList();
+
+    //end sorting algorithm
+    if (length() % 2 == 1) //odd number of objects in list
+    {
+      moveToPos(length()/2);
+      median = getValue();
+      //cout << "median is " << median << endl;
+    }
+    if (length() % 2 == 0) //even number of objects in list
+    {
+      //cout << "nothing here yet " << endl;
+      moveToPos(length()/2);
+      double temp = getValue();
+      moveToPos((length()/2) - 1);
+      double temp_2 = getValue();
+      median = (temp + temp_2) / 2;
+      //cout << "median is " << median << endl;
+    }
+  }
+
+  void sortList()
+  {
+    //cout << "SORTING" << endl;
+    moveToStart();
     for (int i = 0; i < length(); i++)
     {
-      if (getValue() < min_val)
+      double large_temp = getValue();
+      int bigIndex = currPos();
+      //cout << "In outer loop for the " << i << "th time with the large_temp and bigIndex at " << large_temp << " and " << bigIndex << endl;
+      for (int j = 1; j < (length() - i); j++)
       {
-        min_val = getValue();
-        next();  
+        //cout << "In the inner loop for the " << j << "th time" << endl;
+        moveToPos(j);
+        //cout << "At pos " << j << endl;
+        //cout << "comparing " << large_temp << " to " << getValue() << endl;
+        if (large_temp < getValue())
+        {
+          large_temp = getValue();
+          bigIndex = currPos();
+        }
       }
-      else
-        next();
-    }  
+        //cout << "Swapping..." << endl;
+        //cout << "Move object that contains large_temp's value at length of list - i" << endl;
+
+        //cout << "moving to pos length - 1" << endl;
+        moveToPos(length() - i);
+        //cout << "inserting " << large_temp << " at " << currPos() << endl;
+        insert(large_temp, false);
+        //cout << "moving to " << bigIndex << endl;
+        moveToPos(bigIndex);
+        //cout << "removing " << getValue() << " from " << currPos() << endl;
+        remove(false);
+        //print();
+        moveToStart();
+    }
+
+
+
+
   }
 
 
@@ -123,13 +202,31 @@ public:
   ~LList() { // Be very careful when you copy from pdf the tilde will not get copied properly so be sure to replace with actual
     removeall(); // Destructor
   }
+
+  void removen(int n)
+   {
+      int temp = currPos();
+      for (int i = 0; i < n; i++)
+      {
+         remove(true);
+         moveToPos(temp);
+      }
+   }
+
+  template<typename Container>
+  void feed(Container& cont)
+   {
+      for (auto it : cont)
+         append(it, true);
+   }
+
   void print() // Print list contents
   {
     moveToStart();
     cout << "List is: ";
     for (int i = 0; i < length(); i++)
     {
-      cout << getValue();
+      cout << getValue() << " ";
       next();
     }
     cout << endl;
@@ -139,26 +236,39 @@ public:
     removeall();
     init(); // Clear list
   }
-  // Insert "it" at current position
-  void insert(const E& it) {
-    std::cout << "Its in" << std::endl;
+
+// Insert "it" at current position
+  void insert(const E& it, bool update_stats) {
+    //std::cout << "Its in" << std::endl;
 
     curr->next = new Link<E>(it, curr->next);
     if (tail == curr) tail = curr->next; // New tail
     cnt++;
-    update_mean();
-    update_min_val();
-    update_max_val();
+    if (update_stats == true)
+    { 
+      update_mean();
+      update_std_dev();
+      update_median();
+      update_min_val();
+      update_max_val();
+    }
   }
-  void append(const E& it) { // Append "it" to list
+
+
+  void append(const E& it, bool stats_update) { // Append "it" to list
     tail = tail->next = new Link<E>(it, NULL);
     cnt++;
-    update_mean();
-    update_min_val();
-    update_max_val();
+    if (stats_update == true)
+    { 
+      update_mean();
+      update_std_dev();
+      update_median();
+      update_min_val();
+      update_max_val();
+    }
   }
   // Remove and return current element
-  E remove() {
+  E remove(bool update_stats) {
     Assert(curr->next != NULL, "No element");
     E it = curr->next->element; // Remember value
     Link<E>* ltemp = curr->next; // Remember link node
@@ -166,11 +276,22 @@ public:
     curr->next = curr->next->next; // Remove from list
     delete ltemp; // Reclaim space
     cnt--; // Decrements the count
-    update_mean();
-    update_min_val();
-    update_max_val();
+    if (update_stats == true)
+    {
+      update_mean();
+      update_std_dev();
+      update_median(); 
+      update_min_val();
+      update_max_val();     
+    }
+
     return it;
   }
+
+
+
+
+
   // Place curr at list start
   void moveToStart() {
     curr = head;
@@ -218,8 +339,8 @@ public:
         curr = head;
 
     //while (curr != NULL) {
-        it = remove();
-        result.insert(it);
+        it = remove(false);
+        result.insert(it, false);
         //cout << "Its in" << endl;
 
        }
@@ -234,23 +355,35 @@ public:
      E temp = getValue();
      return temp;
    }
-  
-  E removen(int n)
-   {
-      int temp = currPos();
-      for (int i = 0; i < n; i++)
-      {
-         remove(true);
-         moveToPos(temp);
-      }
-   }
-  
-  template<typename Container>
-  void feed(Container& cont)
-   {
-      for (auto it : cont)
-         append(it, true);
-   }
+
+  std::set<int> unique_set()
+  {
+    std::set<int> unique;
+    std::set<int>::iterator it;
+
+    moveToStart();
+    for (int i = 0; i < length() ; i++)
+    {
+       unique.insert(getValue());
+       next();
+    }
+
+    return unique;
+
+  }
+
+  int unique_length()
+  {
+    std::set<int> unique = unique_set();
+    return unique.size();
+  }
+
+  void unique_Print()
+  {
+    std::set<int> unique = unique_set();
+    for(auto itr = unique.begin(); itr != unique.end(); itr++)
+    cout << *itr << " ";
+  }
 
  //getters
 double get_mode() { return mode; }
@@ -261,7 +394,5 @@ double get_min() { return min_val; }
 double get_max() { return max_val; }
 
 };
-
-
 
 #endif // LLIST_H
