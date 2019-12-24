@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
   cout << "max: "<< statistics.get_max() << endl;
   cout << "median: " << statistics.get_median() << endl;
   cout << "standard deviation: " << statistics.get_SD() << endl;
-  cout << "mode: " << statistics.get_mode() << endl;
+  cout << "mode: " << statistics.get_mode() << " NOTE: if mode is 0, it could signal there is no mode because of unique values" << endl;
 
 
   cout << "PRINTING LIST" << endl;
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
   cout << "max: "<< statistics.get_max() << endl;
   cout << "median: " << statistics.get_median() << endl;
   cout << "standard deviation: " << statistics.get_SD() << endl;
-  cout << "mode: " << statistics.get_mode() << endl;
+  cout << "mode: " << statistics.get_mode() << " NOTE: if mode is 0, it could signal there is no mode because of unique values " << endl;
 
 
   std::vector<int> vect{22, 23, 24};
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
   cout << "max: "<< statistics.get_max() << endl;
   cout << "median: " << statistics.get_median() << endl;
   cout << "standard deviation: " << statistics.get_SD() << endl;
-  cout << "mode: " << statistics.get_mode() << endl;
+  cout << "mode: " << statistics.get_mode() << " NOTE: if mode is 0, it could signal there is no mode because of unique values " << endl;
 
   statistics.unique_set();
 

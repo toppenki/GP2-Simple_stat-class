@@ -155,37 +155,44 @@ private:
 
 
 */
-  moveToStart();
-  int arr[cnt];
-  int number = arr[0];
-  mode = number;
-  int count = 1;
-  int modeCounter = 1;
-
-
-  for(int i = 0; i <length() ; i++)
+  if (length() == unique_length())
   {
-    arr[i] = getValue();
-    next();
+    mode = 0;
   }
-  moveToStart();
+  else
+  {  
+    moveToStart();
+    int arr[cnt];
+    int number = arr[0];
+    mode = number;
+    int count = 1;
+    int modeCounter = 1;
 
-  for (int i=1; i<cnt; i++)
-  { 
-      if (arr[i] == number) 
-      {
-          count++;
-      }
-      else
-      {
-          if (count > modeCounter) 
-          {
-              modeCounter = count;
-              mode = number;
-          }
-          count = 1;
-          number = arr[i];
-      }
+
+    for(int i = 0; i <length() ; i++)
+    {
+      arr[i] = getValue();
+      next();
+    }
+    moveToStart();
+
+    for (int i=1; i<cnt; i++)
+    { 
+        if (arr[i] == number) 
+        {
+            count++;
+        }
+        else
+        {
+            if (count > modeCounter) 
+            {
+                modeCounter = count;
+                mode = number;
+            }
+            count = 1;
+            number = arr[i];
+        }
+    }
   }
 }
 
@@ -238,32 +245,6 @@ private:
   double mean;//avg
   double std_dev;//standard deviation
   int latest_value; //update all stats with this value
-  
-
-//calculating functions
-void find_mode(double numberSet) {
-  
-}
-
-void find_median(double numberSet) {
-
-}
-
-void find_mean(double numberSet) {
-  
-}
-
-void find_SD(double numberSet) {
-
-}
-
-void find_min(double numberSet) {
-
-}
-
-void find_max(double numberSet) {
-
-}
 
 public:
   Simplestat(int size = 10) {
@@ -329,7 +310,7 @@ public:
       update_median();
       update_min_val();
       update_max_val();
-      //update_mode();
+      update_mode();
     }
   }
 
@@ -363,7 +344,7 @@ public:
       update_median(); 
       update_min_val();
       update_max_val();  
-      //update_mode();   
+      update_mode();   
     }
 
     return it;
