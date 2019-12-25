@@ -16,7 +16,7 @@
 using namespace std;
 
 // Linked list implementation
-template <typename E> 
+template <typename E>
 class Simplestat: public List<E> {
 private:
   Link<E>* head; // Pointer to list header
@@ -62,7 +62,7 @@ private:
   void update_std_dev() {
     update_mean();
     double temp_array[length()];
-    
+
     for (int i = 0; i < length(); i++) //initialize array to 0
     {
       temp_array[i] = 0;
@@ -121,12 +121,12 @@ private:
     sortList();
     moveToStart();
     double initial_mode_candidate = getValue();
-    cout << "The value of the original initial_mode_candidate: " << initial_mode_candidate << endl; 
+    cout << "The value of the original initial_mode_candidate: " << initial_mode_candidate << endl;
     int counterOfOccurences = 0;
     std::vector<pair<int, double> > vectorOfModes(length()); //vector of pairs, where the first value is the count (frequency) and the second is the value of that frequency
     for (int i = 0; i < length(); i++)
     {
-      //outer for loop, to hold first value of sorted list and compare to subsequent values and understand 
+      //outer for loop, to hold first value of sorted list and compare to subsequent values and understand
       //the frequency of occurence of that value
       if (length() == 1)
       {
@@ -137,7 +137,7 @@ private:
       {
         counterOfOccurences++;
         vectorOfModes[i].first = counterOfOccurences;
-        vectorOfModes[i].second = getValue(); 
+        vectorOfModes[i].second = getValue();
       }
       else
       {
@@ -149,15 +149,15 @@ private:
     {
       cout << "vector is: " << vectorOfModes[i].first << ", " << vectorOfModes[i].second << endl;
     }
-    
-  
+
+
 */
   if (length() == unique_length())
   {
     mode = 0;
   }
   else
-  {  
+  {
     moveToStart();
     int arr[cnt];
     int number = arr[0];
@@ -174,14 +174,14 @@ private:
     moveToStart();
 
     for (int i=1; i<cnt; i++)
-    { 
-        if (arr[i] == number) 
+    {
+        if (arr[i] == number)
         {
             count++;
         }
         else
         {
-            if (count > modeCounter) 
+            if (count > modeCounter)
             {
                 modeCounter = count;
                 mode = number;
@@ -235,13 +235,13 @@ private:
   }
 
 
-  double max_val; //maximum
-  double min_val; //minimum
-  double mode; //most repeated #
-  double median;//middle value
-  double mean;//avg
-  double std_dev;//standard deviation
-  int latest_value; //update all stats with this value
+  E max_val; //maximum
+  E min_val; //minimum
+  E mode; //most repeated #
+  E median;//middle value
+  E mean;//avg
+  E std_dev;//standard deviation
+  E latest_value; //update all stats with this value
 
 public:
   Simplestat(int size = 10) {
@@ -301,7 +301,7 @@ public:
     if (tail == curr) tail = curr->next; // New tail
     cnt++;
     if (update_stats == true)
-    { 
+    {
       update_mean();
       update_std_dev();
       update_median();
@@ -316,7 +316,7 @@ public:
     tail = tail->next = new Link<E>(it, NULL);
     cnt++;
     if (stats_update == true)
-    { 
+    {
       update_mean();
       update_std_dev();
       update_median();
@@ -338,10 +338,10 @@ public:
     {
       update_mean();
       update_std_dev();
-      update_median(); 
+      update_median();
       update_min_val();
-      update_max_val();  
-      update_mode();   
+      update_max_val();
+      update_mode();
     }
 
     return it;
@@ -373,10 +373,10 @@ public:
 
     }
 
-    
+
     cout << "The value " << value << ": \n";
     cout << "First occurs at index: " << first_and_reps.first << std::endl;
-    cout << "And repeats: " << first_and_reps.second << " times. \n"; 
+    cout << "And repeats: " << first_and_reps.second << " times. \n";
 
   }
 
@@ -437,7 +437,7 @@ public:
     this->head = result.head;
   }
   bool isAtEnd() { return curr == tail; }
-  
+
   E &operator[] (int index)
   {
      moveToPos(index);
@@ -445,9 +445,10 @@ public:
      return temp;
    }
 
-  std::set<int> unique_set()
+  //template <typename E>
+  std::set<E> unique_set()
   {
-    std::set<int> unique;
+    std::set<E> unique;
     std::set<int>::iterator it;
 
     moveToStart();
@@ -463,24 +464,24 @@ public:
 
   int unique_length()
   {
-    std::set<int> unique = unique_set();
+    std::set<E> unique = unique_set();
     return unique.size();
   }
 
   void unique_Print()
   {
-    std::set<int> unique = unique_set();
+    std::set<E> unique = unique_set();
     for(auto itr = unique.begin(); itr != unique.end(); itr++)
     cout << *itr << " ";
   }
 
  //getters
-double get_mode() { return mode; }
-double get_median() { return median; }
-double get_mean() { return mean; }
-double get_SD() { return std_dev; }
-double get_min() { return min_val; }
-double get_max() { return max_val; }
+E get_mode() { return mode; }
+E get_median() { return median; }
+E get_mean() { return mean; }
+E get_SD() { return std_dev; }
+E get_min() { return min_val; }
+E get_max() { return max_val; }
 
 };
 
