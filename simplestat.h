@@ -145,16 +145,12 @@ private:
       }
       next();
     }
-
     for (int i = 0; i < length(); i++)
     {
       cout << "vector is: " << vectorOfModes[i].first << ", " << vectorOfModes[i].second << endl;
     }
-
     
   
-
-
 */
   if (length() == unique_length())
   {
@@ -361,13 +357,13 @@ public:
 
     for (int i = 0; i < length(); i++) {
 
-      if (this->element == value && first != true) {
+      if (curr->element == value && first != true) {
 
         first_and_reps.first = i;
         first = true;
 
       }
-      if(this->element == value) {
+      if(curr->element == value) {
 
         first_and_reps.second++;
 
@@ -380,7 +376,7 @@ public:
     
     cout << "The value " << value << ": \n";
     cout << "First occurs at index: " << first_and_reps.first << std::endl;
-    cout << "And repeats: " << first_and_reps.second << "times. \n"; 
+    cout << "And repeats: " << first_and_reps.second << " times. \n"; 
 
   }
 

@@ -27,6 +27,8 @@ int main(int argc, char *argv[])
   {
     statistics.append(i, true);
   }
+
+  cout << endl << endl;
   cout << "THE STATS WITH ORDER(1) ACCESS ARE:" << endl;
   cout << "mean: " << statistics.get_mean() << endl;
   cout << "min: " << statistics.get_min() << endl;
@@ -43,6 +45,8 @@ int main(int argc, char *argv[])
   //statistics.remove(true);
 
   statistics.moveToStart();
+
+  cout << endl << endl;
   //statistics.print();
 
   cout << "REMOVING 1 TO n OBJECTS FROM LIST (N = 2 in this case)" << endl;
@@ -66,6 +70,8 @@ int main(int argc, char *argv[])
   std::list<int> the_list(arr.begin(), arr.end());
   std::unordered_set<int> the_unordered_set(vect.begin(), vect.end());
 
+  cout << endl << endl;
+
   cout << "FEEDING CONTAINERS TO LIST. ADDED VECTOR, ARRAY, SET, LIST, AND UNORDERED SET" << endl;
   statistics.feed(vect);
   statistics.feed(arr);
@@ -83,6 +89,14 @@ int main(int argc, char *argv[])
   cout << "standard deviation: " << statistics.get_SD() << endl;
   cout << "mode: " << statistics.get_mode() << " NOTE: if mode is 0, it could signal there is no mode because of unique values " << endl;
 
+  cout << endl << endl;
+
+  cout << "DEMO-ing SEARCH" << endl;
+
+  statistics.search(22, 0);
+
+  cout << endl << endl;
+
   statistics.unique_set();
 
   cout << "UNIQUE SET PRINTING:";
@@ -94,5 +108,19 @@ int main(int argc, char *argv[])
   cout << "LENGTH OF UNIQUE SET: " << statistics.unique_length() << endl;
 
   cout << "USING OPERATOR OVERLOAD TO ACCESS LINKED LIST'S 5TH OBJECT: " << statistics[4] << endl;
+
+  cout << endl << endl;
+
+  cout << "NOW EMPTYING THE OBJECTS" << endl;
+
+  statistics.clear();
+
+  cout << "THE STATS WITH ORDER(1) ACCESS ARE:" << endl;
+  cout << "mean: " << statistics.get_mean() << endl;
+  cout << "min: " << statistics.get_min() << endl;
+  cout << "max: "<< statistics.get_max() << endl;
+  cout << "median: " << statistics.get_median() << endl;
+  cout << "standard deviation: " << statistics.get_SD() << endl;
+  cout << "mode: " << statistics.get_mode() << " NOTE: if mode is 0, it could signal there is no mode because of unique values " << endl;
 
 }
